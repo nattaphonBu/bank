@@ -47,9 +47,9 @@ class Transaction {
             $stmt->execute(array(":from" => $from));
             $availableAmount = (int) $stmt->fetchColumn();
             $stmt->closeCursor();
-            // if($availableAmount < $amount){
-            //     return 'จำนวนเงินในระบบไม่เพียงพอ';
-            // }
+            if($availableAmount < $amount){
+                return 'จำนวนเงินในระบบไม่เพียงพอ';
+            }
             
             // ---> to do here ตรวจสอบว่ามีเงินที่จะโอนมีน้อยกว่าในบัญชีหรือไม่
 
@@ -76,10 +76,31 @@ class Transaction {
             $stmt->closeCursor();
  
             // ---> to do here ***************
-            if($availableAmount < 0){
-                
-                return 'จำนวนเงินในระบบไม่เพียงพอนะ';
-            }
+            // if($availableAmount < 0){
+            //     $sql_update_from = 'UPDATE accounts
+            //     SET amount = amount + :amount
+            //     WHERE id = :from';
+            
+            // $stmt = $this->pdo->prepare($sql_update_to);
+            // $stmt->execute(array(":to" => $to, ":amount" => $amount));
+ 
+            // // add to the receiving account
+            // $sql_update_to = 'UPDATE accounts
+            //                     SET amount = amount - :amount
+            //                     WHERE id = :to';
+            // $stmt = $this->pdo->prepare($sql_update_from);
+            // $stmt->execute(array(":from" => $from, ":amount" => $amount));
+            // $stmt->closeCursor();
+
+            // // get available amount of the transferer account
+            // $sql = 'SELECT amount FROM accounts WHERE id=:from';
+            // $stmt = $this->pdo->prepare($sql);
+            // $stmt->execute(array(":from" => $from));
+            // $availableAmount = (int) $stmt->fetchColumn();
+            // $stmt->closeCursor();
+
+            //     return 'จำนวนเงินในระบบไม่เพียงพอนะ';
+            // }
             // commit the transaction
             $this->pdo->commit();
                 // return 'จำนวนเงินในระบบไม่เพียงพอ';
