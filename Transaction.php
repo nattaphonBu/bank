@@ -47,9 +47,10 @@ class Transaction {
             $stmt->execute(array(":from" => $from));
             $availableAmount = (int) $stmt->fetchColumn();
             $stmt->closeCursor();
-            if($availableAmount < $amount){
-                return 'จำนวนเงินในระบบไม่เพียงพอ';
-            }
+            // if($availableAmount < $amount){
+            //     return 'จำนวนเงินในระบบไม่เพียงพอ';
+            // }
+            
             // ---> to do here ตรวจสอบว่ามีเงินที่จะโอนมีน้อยกว่าในบัญชีหรือไม่
 
             // deduct from the transferred account
@@ -75,7 +76,10 @@ class Transaction {
             $stmt->closeCursor();
  
             // ---> to do here ***************
- 
+            if($availableAmount < 0){
+                
+                return 'จำนวนเงินในระบบไม่เพียงพอนะ';
+            }
             // commit the transaction
             $this->pdo->commit();
                 // return 'จำนวนเงินในระบบไม่เพียงพอ';
